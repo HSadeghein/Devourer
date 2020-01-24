@@ -28,6 +28,7 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void PossessedBy(AController* controller) override;
 	//Cpmponents
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
 	UStaticMeshComponent* Mesh;
@@ -45,4 +46,5 @@ public:
 
 	//Functions
 	void MoveForward(float value);
+
 };

@@ -9,9 +9,20 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(config = Game)
 class DEVOURER_API ASpaceshipPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+public:
+	ASpaceshipPlayerController(const FObjectInitializer& initializer);
+
+	virtual void SetupInputComponent() override;
+
+	void MoveForward(float value);
+
+	//Properties
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MovementForce = 10000.0f;
 	
 };
