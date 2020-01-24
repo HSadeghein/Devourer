@@ -20,6 +20,7 @@ public:
 	virtual void SetupInputComponent() override;
 
 	void MoveForward(float value);
+	void MoveLeft(float value);
 
 	//Properties
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

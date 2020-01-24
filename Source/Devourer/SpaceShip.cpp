@@ -19,11 +19,11 @@ ASpaceShip::ASpaceShip()
 	//Set The Hirarchy
 	RootComponent = Mesh;
 	SpringArm->SetupAttachment(Mesh);
-	SpringArm->SetUsingAbsoluteRotation(true);
+	/*SpringArm->SetUsingAbsoluteRotation(true);
 	SpringArm->SetRelativeLocation(FVector(16.0f, 0.0f, 47.0f));
 	auto q = FQuat::MakeFromEuler(FVector(0,-20,0));
 	
-	SpringArm->SetWorldRotation(q);
+	SpringArm->SetWorldRotation(q);*/
 	Camera->SetupAttachment(SpringArm);
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 	//Set physics
