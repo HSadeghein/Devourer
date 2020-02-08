@@ -12,6 +12,8 @@ void ASpaceshipPlayerController::SetupInputComponent()
 	Super::SetupInputComponent();
 	check(InputComponent);
 	InputComponent->BindAxis("MoveForward", this, &ASpaceshipPlayerController::MoveForward);
+	InputComponent->BindAxis("MoveUp", this, &ASpaceshipPlayerController::MoveUp);
+	InputComponent->BindAxis("MoveLeft", this, &ASpaceshipPlayerController::MoveLeft);
 }
 
 void ASpaceshipPlayerController::MoveForward(float value) {
@@ -31,5 +33,16 @@ void ASpaceshipPlayerController::MoveLeft(float value) {
 		auto ship = static_cast<ASpaceShip*>(pawn);
 		FVector torgue = FVector(0, 0, 1) * MovementForce * value;
 		ship->Mesh->AddTorque(torgue);
+	}
+}
+
+void ASpaceshipPlayerController::MoveUp(float value)
+{
+	auto pawn = GetPawn();
+
+	if (value != 0 && pawn) {
+		auto ship = static_cast<ASpaceShip*>(pawn);
+		FVector force = FVector(0, 0, 1) * MovementForce * value;
+		ship->Mesh->AddForce(force);
 	}
 }

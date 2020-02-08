@@ -21,9 +21,9 @@ public:
 
 	void MoveForward(float value);
 	void MoveLeft(float value);
-
+	void MoveUp(float value);
 	//Properties
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MovementForce = 10000.0f;
+	float MovementForce = 1000000.0f;
 	
 };
