@@ -13,5 +13,6 @@ UCLASS()
 class DEVOURER_API ADevourerGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+public:
+	ADevourerGameModeBase(const class FObjectInitializer& objectInitializer);
 };

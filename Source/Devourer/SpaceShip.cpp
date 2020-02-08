@@ -3,13 +3,14 @@
 
 #include "SpaceShip.h"
 #include "Components/InputComponent.h"
+#include "SpaceshipPlayerController.h"
 
 // Sets default values
 ASpaceShip::ASpaceShip()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	
 
 	//Initialize The Componenets
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
@@ -18,8 +19,13 @@ ASpaceShip::ASpaceShip()
 	//Set The Hirarchy
 	RootComponent = Mesh;
 	SpringArm->SetupAttachment(Mesh);
+	/*SpringArm->SetUsingAbsoluteRotation(true);
+	SpringArm->SetRelativeLocation(FVector(16.0f, 0.0f, 47.0f));
+	auto q = FQuat::MakeFromEuler(FVector(0,-20,0));
+	
+	SpringArm->SetWorldRotation(q);*/
 	Camera->SetupAttachment(SpringArm);
-
+	AutoPossessPlayer = EAutoReceiveInput::Player0;
 	//Set physics
 	Mesh->SetSimulatePhysics(true);
 	MovementForce = 10000.0f;
@@ -29,7 +35,8 @@ ASpaceShip::ASpaceShip()
 void ASpaceShip::BeginPlay()
 {
 	Super::BeginPlay();
-
+	auto controller = GetWorld()->GetFirstPlayerController();
+	controller->Possess(this);
 
 
 }
@@ -46,7 +53,12 @@ void ASpaceShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	InputComponent->BindAxis("MoveForward", this, &ASpaceShip::MoveForward);
+	//InputComponent->BindAxis("MoveForward", this, &ASpaceShip::MoveForward);
+}
+
+void ASpaceShip::PossessedBy(AController* controller) {
+	Super::PossessedBy(controller);
+	Controller = controller;
 }
 
 
