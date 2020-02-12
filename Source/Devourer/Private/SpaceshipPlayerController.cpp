@@ -14,6 +14,8 @@ void ASpaceshipPlayerController::SetupInputComponent()
 	InputComponent->BindAxis("MoveForward", this, &ASpaceshipPlayerController::MoveForward);
 	InputComponent->BindAxis("MoveUp", this, &ASpaceshipPlayerController::MoveUp);
 	InputComponent->BindAxis("MoveLeft", this, &ASpaceshipPlayerController::MoveLeft);
+	InputComponent->BindAxis("TiltVertical", this, &ASpaceshipPlayerController::TiltVertical);
+	InputComponent->BindAxis("TiltHorizontal", this, &ASpaceshipPlayerController::TilHorizontal);
 }
 
 void ASpaceshipPlayerController::MoveForward(float value) {
@@ -21,7 +23,7 @@ void ASpaceshipPlayerController::MoveForward(float value) {
 	if (value != 0.0f&&pawn != nullptr) {
 		auto pawn = static_cast<ASpaceShip*>(GetPawn());
 		auto orientation = pawn->Mesh->GetRelativeRotation();
-		FVector t_ForceToAdd = orientation.RotateVector(  FVector(1, 0, 0)) * MovementForce * value;
+		FVector t_ForceToAdd = orientation.RotateVector( FVector(1, 0, 0)) * MovementForce * value;
 		//pawn->SetActorLocation(FVector(0,0,0));
 		pawn->Mesh->AddForce(t_ForceToAdd);
 	}
@@ -32,8 +34,8 @@ void ASpaceshipPlayerController::MoveLeft(float value) {
 	if (value != 0 && pawn != nullptr)
 	{
 		auto ship = static_cast<ASpaceShip*>(pawn);
-		FVector torgue = FVector(0, 0, 1) * MovementForce * value;
-		ship->Mesh->AddTorque(torgue);
+		FVector torque = FVector(0, 0, 1) * MovementForce * value;
+		ship->Mesh->AddTorque(torque);
 	}
 }
 
@@ -43,7 +45,32 @@ void ASpaceshipPlayerController::MoveUp(float value)
 
 	if (value != 0 && pawn) {
 		auto ship = static_cast<ASpaceShip*>(pawn);
-		FVector force = FVector(0, 0, 1) * MovementForce * value;
+		auto orien = ship->Mesh->GetRelativeRotation();
+		FVector force = orien.RotateVector(FVector(0, 0, 1)) * MovementForce * value;
 		ship->Mesh->AddForce(force);
+	}
+}
+
+void ASpaceshipPlayerController::TiltVertical(float value)
+{
+	auto pawn = GetPawn();
+
+	if (value != 0 && pawn) {
+		auto ship = static_cast<ASpaceShip*>(pawn);
+		auto orien = ship->Mesh->GetRelativeRotation();
+		FVector torque = orien.RotateVector(FVector(0, 1, 0)) * MovementForce * value;
+		ship->Mesh->AddTorque(torque);
+	}
+}
+
+void ASpaceshipPlayerController::TilHorizontal(float value)
+{
+	auto pawn = GetPawn();
+
+	if (value != 0 && pawn) {
+		auto ship = static_cast<ASpaceShip*>(pawn);
+		auto orien = ship->Mesh->GetRelativeRotation();
+		FVector torque = orien.RotateVector(FVector(1, 0, 0)) * MovementForce * value;
+		ship->Mesh->AddTorque(torque);
 	}
 }
