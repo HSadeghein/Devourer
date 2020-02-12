@@ -17,10 +17,11 @@ void ASpaceshipPlayerController::SetupInputComponent()
 }
 
 void ASpaceshipPlayerController::MoveForward(float value) {
-	FVector t_ForceToAdd = FVector(1, 0, 0) * MovementForce * value;
 	auto pawn = GetPawn();
 	if (value != 0.0f&&pawn != nullptr) {
 		auto pawn = static_cast<ASpaceShip*>(GetPawn());
+		auto orientation = pawn->Mesh->GetRelativeRotation();
+		FVector t_ForceToAdd = orientation.RotateVector(  FVector(1, 0, 0)) * MovementForce * value;
 		//pawn->SetActorLocation(FVector(0,0,0));
 		pawn->Mesh->AddForce(t_ForceToAdd);
 	}
