@@ -28,6 +28,9 @@ ASpaceShip::ASpaceShip()
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 	//Set physics
 	Mesh->SetSimulatePhysics(true);
+	Mesh->SetEnableGravity(false);
+	Mesh->SetLinearDamping(.5f);
+	Mesh->SetAngularDamping(.5f);
 	MovementForce = 10000.0f;
 }
 

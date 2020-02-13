@@ -70,6 +70,7 @@ void ASpaceshipPlayerController::TilHorizontal(float value)
 	if (value != 0 && pawn) {
 		auto ship = static_cast<ASpaceShip*>(pawn);
 		auto orien = ship->Mesh->GetRelativeRotation();
+		
 		FVector torque = orien.RotateVector(FVector(1, 0, 0)) * MovementForce * value;
 		ship->Mesh->AddTorque(torque);
 	}
