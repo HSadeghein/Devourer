@@ -22,6 +22,8 @@ public:
 	void MoveForward(float value);
 	void MoveLeft(float value);
 	void MoveUp(float value);
+	void TiltVertical(float value);
+	void TilHorizontal(float value);
 	//Properties
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MovementForce = 1000000.0f;
