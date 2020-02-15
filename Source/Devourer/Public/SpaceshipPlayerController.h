@@ -26,6 +26,6 @@ public:
 	void TilHorizontal(float value);
 	//Properties
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MovementForce = 1000000.0f;
+	float MovementForce = 100000.0f;
 	
 };
