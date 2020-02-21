@@ -43,8 +43,12 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	float MovementForce = 1.0f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TSubclassOf<APawn> enemyPawn;
+
 
 	//Functions
 	void MoveForward(float value);
+	void SpawnEnemy();
 
 };
