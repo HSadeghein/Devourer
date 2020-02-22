@@ -102,6 +102,7 @@ void ASpaceshipPlayerController::BreakStart()
 	if (pawn) {
 		auto ship = static_cast<ASpaceShip*>(pawn);
 		ship->Mesh->SetLinearDamping(5);
+		ship->Mesh->SetAngularDamping(5);
 	}
 }
 
@@ -111,6 +112,7 @@ void ASpaceshipPlayerController::BreakEnd()
 	if (pawn) {
 		auto ship = static_cast<ASpaceShip*>(pawn);
 		ship->Mesh->SetLinearDamping(0);
+		ship->Mesh->SetAngularDamping(.5f);
 	}
 }
 

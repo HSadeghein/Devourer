@@ -4,6 +4,7 @@
 #include "SpaceShip.h"
 #include "Components/InputComponent.h"
 #include "SpaceshipPlayerController.h"
+#include "Math/Box.h"
 
 // Sets default values
 ASpaceShip::ASpaceShip()
@@ -83,7 +84,10 @@ void ASpaceShip::SpawnEnemy()
 	auto world = GetWorld();
 
 	if (world != nullptr) {
-		world->SpawnActor(enemyPawn);
+		auto pos = Mesh->GetRelativeLocation();
+		pos += (Mesh->GetForwardVector()*1000.0f);
+	
+		world->SpawnActor(enemyPawn, &pos);
 	}
 }
 
