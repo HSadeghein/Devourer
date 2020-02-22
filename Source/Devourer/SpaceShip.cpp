@@ -66,7 +66,7 @@ void ASpaceShip::PossessedBy(AController* controller) {
 
 	auto rotator = Mesh->GetRelativeRotation();
 	// Add force
-	FVector force = rotator.RotateVector(FVector(1, 0, 0)) * MovementForce;
+	FVector force = Mesh->GetForwardVector() * MovementForce;
 	Mesh->AddForce(force);
 }
 

@@ -24,6 +24,8 @@ public:
 	void MoveUp(float value);
 	void TiltVertical(float value);
 	void TilHorizontal(float value);
+
+	void Throttle(float value);
 	
 	//Properties
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
