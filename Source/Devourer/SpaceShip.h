@@ -29,7 +29,8 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void PossessedBy(AController* controller) override;
-	//Cpmponents
+	
+	// Cpmponents
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
 	UStaticMeshComponent* Mesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -43,8 +44,12 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	float MovementForce = 1.0f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TSubclassOf<APawn> enemyPawn;
+
 
 	//Functions
 	void MoveForward(float value);
+	void SpawnEnemy();
 
 };

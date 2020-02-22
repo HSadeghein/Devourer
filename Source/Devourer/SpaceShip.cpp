@@ -29,7 +29,7 @@ ASpaceShip::ASpaceShip()
 	//Set physics
 	Mesh->SetSimulatePhysics(true);
 	Mesh->SetEnableGravity(false);
-	Mesh->SetLinearDamping(.5f);
+	Mesh->SetLinearDamping(0);
 	Mesh->SetAngularDamping(.5f);
 	MovementForce = 10000.0f;
 }
@@ -57,11 +57,17 @@ void ASpaceShip::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	//InputComponent->BindAxis("MoveForward", this, &ASpaceShip::MoveForward);
+	InputComponent->BindAction("SpawnEnemy", IE_Released, this, &ASpaceShip::SpawnEnemy);
 }
 
 void ASpaceShip::PossessedBy(AController* controller) {
 	Super::PossessedBy(controller);
 	Controller = controller;
+
+	auto rotator = Mesh->GetRelativeRotation();
+	// Add force
+	FVector force = Mesh->GetForwardVector() * MovementForce;
+	Mesh->AddForce(force);
 }
 
 
@@ -70,5 +76,14 @@ void ASpaceShip::MoveForward(float value)
 	FVector t_ForceToAdd = FVector(1, 0, 0) * MovementForce * value;
 
 	Mesh->AddForce(t_ForceToAdd);
+}
+
+void ASpaceShip::SpawnEnemy()
+{
+	auto world = GetWorld();
+
+	if (world != nullptr) {
+		world->SpawnActor(enemyPawn);
+	}
 }
 

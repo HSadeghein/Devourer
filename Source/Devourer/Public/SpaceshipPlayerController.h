@@ -24,8 +24,14 @@ public:
 	void MoveUp(float value);
 	void TiltVertical(float value);
 	void TilHorizontal(float value);
+
+	void Throttle(float value);
+	
 	//Properties
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MovementForce = 100000.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float throttle = 1.0f;
 	
 };

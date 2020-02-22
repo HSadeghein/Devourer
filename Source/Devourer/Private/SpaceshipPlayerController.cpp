@@ -11,11 +11,14 @@ void ASpaceshipPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 	check(InputComponent);
-	InputComponent->BindAxis("MoveForward", this, &ASpaceshipPlayerController::MoveForward);
+	//InputComponent->BindAxis("MoveForward", this, &ASpaceshipPlayerController::MoveForward);
 	InputComponent->BindAxis("MoveUp", this, &ASpaceshipPlayerController::MoveUp);
-	InputComponent->BindAxis("MoveLeft", this, &ASpaceshipPlayerController::MoveLeft);
+	//InputComponent->BindAxis("MoveLeft", this, &ASpaceshipPlayerController::MoveLeft);
 	InputComponent->BindAxis("TiltVertical", this, &ASpaceshipPlayerController::TiltVertical);
 	InputComponent->BindAxis("TiltHorizontal", this, &ASpaceshipPlayerController::TilHorizontal);
+
+	InputComponent->BindAxis("Throttle", this, &ASpaceshipPlayerController::Throttle);
+
 }
 
 void ASpaceshipPlayerController::MoveForward(float value) {
@@ -23,7 +26,7 @@ void ASpaceshipPlayerController::MoveForward(float value) {
 	if (value != 0.0f&&pawn != nullptr) {
 		auto pawn = static_cast<ASpaceShip*>(GetPawn());
 		auto orientation = pawn->Mesh->GetRelativeRotation();
-		FVector t_ForceToAdd = orientation.RotateVector( FVector(1, 0, 0)) * MovementForce * value;
+		FVector t_ForceToAdd = orientation.RotateVector( FVector(1, 0, 0)) * MovementForce * value * throttle;
 		//pawn->SetActorLocation(FVector(0,0,0));
 		pawn->Mesh->AddForce(t_ForceToAdd);
 	}
@@ -75,3 +78,15 @@ void ASpaceshipPlayerController::TilHorizontal(float value)
 		ship->Mesh->AddTorque(torque);
 	}
 }
+
+void ASpaceshipPlayerController::Throttle(float value) {
+	auto pawn = GetPawn();
+	if (value != 0 && pawn != nullptr) {
+		auto pawn = static_cast<ASpaceShip*>(GetPawn());
+		auto orientation = pawn->Mesh->GetRelativeRotation();
+		FVector t_ForceToAdd = pawn->Mesh->GetForwardVector() * MovementForce*value;
+		//pawn->SetActorLocation(FVector(0,0,0));
+		pawn->Mesh->AddForce(t_ForceToAdd);
+	}
+}
+
