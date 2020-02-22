@@ -18,6 +18,8 @@ void ASpaceshipPlayerController::SetupInputComponent()
 	InputComponent->BindAxis("TiltHorizontal", this, &ASpaceshipPlayerController::TilHorizontal);
 
 	InputComponent->BindAxis("Throttle", this, &ASpaceshipPlayerController::Throttle);
+	InputComponent->BindAction("Break", IE_Pressed, this, &ASpaceshipPlayerController::BreakStart);
+	InputComponent->BindAction("Break", IE_Released, this, &ASpaceshipPlayerController::BreakEnd);
 
 }
 
@@ -82,11 +84,44 @@ void ASpaceshipPlayerController::TilHorizontal(float value)
 void ASpaceshipPlayerController::Throttle(float value) {
 	auto pawn = GetPawn();
 	if (value != 0 && pawn != nullptr) {
-		auto pawn = static_cast<ASpaceShip*>(GetPawn());
-		auto orientation = pawn->Mesh->GetRelativeRotation();
-		FVector t_ForceToAdd = pawn->Mesh->GetForwardVector() * MovementForce*value;
+		auto ship = static_cast<ASpaceShip*>(pawn);
+		auto speed = getSpeed();
+		if (speed >= MAX_SPEED) 
+			return;
+		auto orientation = ship->Mesh->GetRelativeRotation();
+		FVector t_ForceToAdd = ship->Mesh->GetForwardVector() * MovementForce*value;
 		//pawn->SetActorLocation(FVector(0,0,0));
-		pawn->Mesh->AddForce(t_ForceToAdd);
+		ship->Mesh->AddForce(t_ForceToAdd);
 	}
+}
+
+void ASpaceshipPlayerController::BreakStart()
+{
+	// Use lineardamping for break
+	auto pawn = GetPawn();
+	if (pawn) {
+		auto ship = static_cast<ASpaceShip*>(pawn);
+		ship->Mesh->SetLinearDamping(5);
+	}
+}
+
+void ASpaceshipPlayerController::BreakEnd()
+{
+	auto pawn = GetPawn();
+	if (pawn) {
+		auto ship = static_cast<ASpaceShip*>(pawn);
+		ship->Mesh->SetLinearDamping(0);
+	}
+}
+
+float ASpaceshipPlayerController::getSpeed()
+{
+	auto pawn = GetPawn();
+	if (pawn) {
+		auto ship = static_cast<ASpaceShip*>(pawn);
+		auto speed = ship->Mesh->GetPhysicsLinearVelocity().Size();
+		return speed;
+	}
+	return -1;
 }
 
