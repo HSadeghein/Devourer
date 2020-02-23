@@ -1,13 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
+#include <EngineGlobals.h>
+#include <Runtime/Engine/Classes/Engine/Engine.h>
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "SpaceshipPlayerController.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS(config = Game)
 class DEVOURER_API ASpaceshipPlayerController : public APlayerController
@@ -30,14 +31,17 @@ public:
 
 	void BreakStart();
 	void BreakEnd();
-	
+
+	virtual void PlayerTick(float DeltaTime) override;
 	//Properties
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MovementForce = 30000.0f;
-
+		float LinearForce = 50000.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float AngularForce = 60000.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float throttle = 1.0f;
-	
-	private:
-		float getSpeed();
+
+private:
+	float getSpeed();
+	FVector forwardForce = FVector(0, 0, 0);
 };

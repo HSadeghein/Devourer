@@ -22,27 +22,28 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void PossessedBy(AController* controller) override;
-	
+
 	// Cpmponents
-	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
-	UStaticMeshComponent* Mesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	USpringArmComponent* SpringArm;
+		UStaticMeshComponent* Mesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UCameraComponent* Camera;
+		USpringArmComponent* SpringArm;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		UCameraComponent* Camera;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		UStaticMeshComponent* DummyMesh;
 
 
-	
 	//Properties
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	float MovementForce = 1.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float MovementForce = 1.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TSubclassOf<APawn> enemyPawn;

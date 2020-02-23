@@ -17,8 +17,10 @@ ASpaceShip::ASpaceShip()
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
+	DummyMesh = CreateDefaultSubobject<UStaticMeshComponent>("DummyMesh");
 	//Set The Hirarchy
 	RootComponent = Mesh;
+	DummyMesh->SetupAttachment(Mesh);
 	SpringArm->SetupAttachment(Mesh);
 	/*SpringArm->SetUsingAbsoluteRotation(true);
 	SpringArm->SetRelativeLocation(FVector(16.0f, 0.0f, 47.0f));
@@ -30,8 +32,11 @@ ASpaceShip::ASpaceShip()
 	//Set physics
 	Mesh->SetSimulatePhysics(true);
 	Mesh->SetEnableGravity(false);
-	Mesh->SetLinearDamping(0);
-	Mesh->SetAngularDamping(.5f);
+	//Mesh->SetLinearDamping(0);
+	//Mesh->SetAngularDamping(.5f);
+	DummyMesh->SetSimulatePhysics(false);
+	DummyMesh->SetEnableGravity(false);
+	DummyMesh->SetRelativeLocation(FVector(100, 0, 0));
 	MovementForce = 10000.0f;
 }
 
