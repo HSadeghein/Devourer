@@ -9,6 +9,8 @@
 #include "Camera/CameraComponent.h"
 #include "SpaceShip.generated.h"
 
+class UBoxComponent;
+
 UCLASS()
 class DEVOURER_API ASpaceShip : public APawn
 {
@@ -37,8 +39,10 @@ public:
 		USpringArmComponent* SpringArm;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		UCameraComponent* Camera;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		UStaticMeshComponent* DummyMesh;
+		UBoxComponent* BoxCollider;
+	
 
 
 	//Properties

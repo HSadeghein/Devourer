@@ -5,6 +5,7 @@
 #include "Components/InputComponent.h"
 #include "SpaceshipPlayerController.h"
 #include "Math/Box.h"
+#include "Components/BoxComponent.h"
 
 // Sets default values
 ASpaceShip::ASpaceShip()
@@ -14,13 +15,13 @@ ASpaceShip::ASpaceShip()
 	
 
 	//Initialize The Componenets
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
-	SpringArm = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
-	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
-	DummyMesh = CreateDefaultSubobject<UStaticMeshComponent>("DummyMesh");
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	BoxCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("box collider"));
+
 	//Set The Hirarchy
 	RootComponent = Mesh;
-	DummyMesh->SetupAttachment(Mesh);
 	SpringArm->SetupAttachment(Mesh);
 	/*SpringArm->SetUsingAbsoluteRotation(true);
 	SpringArm->SetRelativeLocation(FVector(16.0f, 0.0f, 47.0f));
@@ -28,15 +29,17 @@ ASpaceShip::ASpaceShip()
 	
 	SpringArm->SetWorldRotation(q);*/
 	Camera->SetupAttachment(SpringArm);
+	BoxCollider->SetupAttachment(Mesh);
+	BoxCollider->SetRelativeLocation(FVector(2200.0f, 0.0f, 300.0f));
+	BoxCollider->SetRelativeScale3D(FVector(30.0f,18.5f,11.5f));
+
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 	//Set physics
 	Mesh->SetSimulatePhysics(true);
 	Mesh->SetEnableGravity(false);
 	//Mesh->SetLinearDamping(0);
 	//Mesh->SetAngularDamping(.5f);
-	DummyMesh->SetSimulatePhysics(false);
-	DummyMesh->SetEnableGravity(false);
-	DummyMesh->SetRelativeLocation(FVector(100, 0, 0));
+	
 	MovementForce = 10000.0f;
 }
 

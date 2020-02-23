@@ -105,7 +105,7 @@ void ASpaceshipPlayerController::PlayerTick(float DeltaTime)
 	LinearForce = 30000;
 	AngularForce = 40000;
 	Super::PlayerTick(DeltaTime);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, FString::Printf(TEXT("Linear Force: %f"), LinearForce));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, FString::Printf(TEXT("Linear Force: %f"), LinearForce));
 	auto pawn = GetPawn();
 	auto ship = static_cast<ASpaceShip*>(pawn);
 	FVector t_ForceToAdd = ship->Mesh->GetForwardVector() * LinearForce;
