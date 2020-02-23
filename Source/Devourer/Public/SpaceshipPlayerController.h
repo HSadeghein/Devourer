@@ -14,7 +14,7 @@ class DEVOURER_API ASpaceshipPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-		const float MAX_SPEED = 1000.0f;
+		const float MAX_SPEED = 500.0f;
 public:
 	ASpaceshipPlayerController(const FObjectInitializer& initializer);
 
@@ -33,7 +33,7 @@ public:
 	
 	//Properties
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MovementForce = 100000.0f;
+	float MovementForce = 30000.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		float throttle = 1.0f;

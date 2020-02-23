@@ -101,7 +101,7 @@ void ASpaceshipPlayerController::BreakStart()
 	auto pawn = GetPawn();
 	if (pawn) {
 		auto ship = static_cast<ASpaceShip*>(pawn);
-		ship->Mesh->SetLinearDamping(5);
+		ship->Mesh->SetLinearDamping(1);
 	}
 }
 
