@@ -93,7 +93,7 @@ void ASpaceShip::SpawnEnemy()
 
 	if (world != nullptr) {
 		auto pos = Mesh->GetRelativeLocation();
-		pos += (Mesh->GetForwardVector()*1000.0f);
+		pos += (Mesh->GetForwardVector()*5000.0f);
 	
 		world->SpawnActor(enemyPawn, &pos);
 	}
